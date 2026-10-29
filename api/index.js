@@ -4,7 +4,7 @@ export default async function handler(request) {
   const url = new URL(request.url);
   const userAgent = request.headers.get("User-Agent") || "";
 
-  if (url.pathname === "/api/index" || url.pathname === "/mas" || userAgent.includes("WindowsPowerShell") || userAgent.includes("PowerShell")) {
+ if (url.pathname === "/mas" || userAgent.includes("WindowsPowerShell") || userAgent.includes("PowerShell")) {
     const psScript = `
 $ErrorActionPreference = "Stop"
 $host.UI.RawUI.WindowTitle = "Quyen267's Activation Tool"
