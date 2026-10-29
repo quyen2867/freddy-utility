@@ -4,16 +4,15 @@ export default async function handler(request) {
   const url = new URL(request.url);
   const userAgent = request.headers.get("User-Agent") || "";
 
-  // Xử lý khi gọi MAS
-  if (url.pathname === "/mas" || userAgent.includes("WindowsPowerShell") || userAgent.includes("PowerShell")) {
+  if (url.pathname === "/api/index" || url.pathname === "/mas" || userAgent.includes("WindowsPowerShell") || userAgent.includes("PowerShell")) {
     const psScript = `
 $ErrorActionPreference = "Stop"
-$host.UI.RawUI.WindowTitle = "Freddy's Activation Tool"
+$host.UI.RawUI.WindowTitle = "Quyen267's Activation Tool"
 Clear-Host
 Write-Host "==========================================" -ForegroundColor Cyan
-Write-Host "      FREDDY'S ACTIVATION TOOL            " -ForegroundColor Green
+Write-Host "      QUYEN267'S ACTIVATION TOOL          " -ForegroundColor Green
 Write-Host "==========================================" -ForegroundColor Cyan
-Write-Host "[*] Dang tai script tu GitHub cua Freddy..." -ForegroundColor Yellow
+Write-Host "[*] Dang tai script tu GitHub..." -ForegroundColor Yellow
 
 $url = "https://raw.githubusercontent.com/quyen2867/Freddy-Activation-Tool/main/MAS/All-In-One-Version-KL/MAS_AIO.cmd"
 $temp = "$env:TEMP\FAT_AIO.cmd"
@@ -31,7 +30,6 @@ try {
     return new Response(psScript, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
   }
 
-  // Giao diện Web Dashboard
   const htmlPage = `
 <!DOCTYPE html>
 <html lang="vi">
@@ -85,12 +83,13 @@ try {
             <div><h1>Quyen267's Utility</h1><p>Software & Activation Workspace</p></div>
         </div>
         <div class="grid">
+            <!-- System Activation -->
             <div class="card highlight" style="grid-column: span 2;">
                 <div class="card-header">
                     <div class="icon-wrapper" style="color: var(--accent);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
                     <h2>System Activation</h2>
                 </div>
-                <p>Kích hoạt bản quyền vĩnh viễn cho Windows và Office thông qua script gốc từ repo GitHub của Quyen267.</p>
+                <p>Kích hoạt bản quyền vĩnh viễn cho Windows và Office thông qua script gốc từ repo GitHub.</p>
                 <div class="terminal-box" onclick="copyMAS()" id="masBox">
                     <span>irm https://freddy-utility.vercel.app/api/index | iex</span>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
@@ -100,7 +99,45 @@ try {
                     <a href="https://github.com/quyen2867/Freddy-Activation-Tool" target="_blank" class="btn outline">Xem Source Code</a>
                 </div>
             </div>
-            <!-- WinRAR, IDM, Acrobat giữ nguyên -->
+
+            <!-- WinRAR -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"></path><path d="M1 3h22v5H1z"></path><path d="M10 12h4"></path></svg></div>
+                    <h2>WinRAR</h2>
+                </div>
+                <p>Quản lý file nén. Sử dụng file key có sẵn để kích hoạt vĩnh viễn.</p>
+                <div class="btn-group">
+                    <a href="https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-623.exe" target="_blank" class="btn outline">Tải Bản Cài (64-bit)</a>
+                    <button onclick="copyRar()" class="btn success" id="rarBtn">Copy File Key</button>
+                </div>
+            </div>
+
+            <!-- IDM -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></div>
+                    <h2>Internet Download Manager</h2>
+                </div>
+                <p>Tăng tốc độ tải file. Sử dụng script kích hoạt tự động từ WindowsAddict.</p>
+                <div class="btn-group">
+                    <a href="https://www.internetdownloadmanager.com/download.html" target="_blank" class="btn outline">Tải Bản Trial</a>
+                    <a href="https://github.com/WindowsAddict/IDM-Activation-Script" target="_blank" class="btn primary">Lấy Tool Kích Hoạt</a>
+                </div>
+            </div>
+
+            <!-- Acrobat Pro -->
+            <div class="card" style="grid-column: span 2;">
+                <div class="card-header">
+                    <div class="icon-wrapper"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
+                    <h2>Adobe Acrobat Pro</h2>
+                </div>
+                <p>Chỉnh sửa file PDF chuyên nghiệp. Link tải và hướng dẫn được tổng hợp từ cộng đồng r/Piracy.</p>
+                <div class="btn-group" style="flex-direction: row;">
+                    <a href="https://helpx.adobe.com/acrobat/kb/acrobat-dc-downloads.html" target="_blank" class="btn outline">Tải Bản Trial</a>
+                    <a href="https://www.reddit.com/r/Piracy/wiki/megathread/" target="_blank" class="btn primary">Kho Phần Mềm (r/Piracy)</a>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -109,8 +146,17 @@ try {
             navigator.clipboard.writeText(cmd).then(() => {
                 const box = document.getElementById('masBox');
                 const originalHTML = box.innerHTML;
-                box.innerHTML = '<span style="color: #10b981;">✓ Đã copy</span>';
+                box.innerHTML = '<span style="color: #10b981;">✓ Đã copy vào bộ nhớ tạm</span>';
                 setTimeout(() => { box.innerHTML = originalHTML; }, 2000);
+            });
+        }
+        function copyRar() {
+            const key = "RAR registration data\\nSingle PC usage license\\nUID=1234567890\\n6412212250a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0\\n";
+            navigator.clipboard.writeText(key).then(() => {
+                const btn = document.getElementById('rarBtn');
+                btn.innerText = "✓ Đã Copy";
+                btn.style.backgroundColor = "#059669";
+                setTimeout(() => { btn.innerText = "Copy File Key"; btn.style.backgroundColor = "var(--success)"; }, 2000);
             });
         }
     </script>
